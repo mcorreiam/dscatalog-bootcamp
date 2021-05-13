@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.marcocorreia.dscatalog.dto.CategoryDTO;
 import com.marcocorreia.dscatalog.entities.Category;
 import com.marcocorreia.dscatalog.repositories.CategoryRepository;
+import com.marcocorreia.dscatalog.services.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
@@ -24,7 +25,7 @@ public class CategoryService {
 
 	public CategoryDTO findById(Long id) {
 		Optional<Category> obj = repository.findById(id);
-		Category entity = obj.get();
+		Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 		return new CategoryDTO(entity);
 	}
 
