@@ -18,7 +18,7 @@ public class ProductRepositoryTests {
 	@Autowired
 	private ProductRepository repository;
 	
-	private Long existingId;
+	private long existingId;
 	private long nonExistingId;
 	private long countTotalProducts;
 	
@@ -54,6 +54,18 @@ public class ProductRepositoryTests {
 		Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
 			repository.deleteById(nonExistingId);
 		});
+	}
+	
+	@Test
+	public void findByIdShouldReturnNonEmptyOptionalWhenIdExsists() {		
+		Optional<Product> result = repository.findById(existingId);
+		Assertions.assertTrue(result.isPresent());		
+	}
+	
+	@Test
+	public void findByIdShouldReturnEmptyOptionalWhenIdExsists() {		
+		Optional<Product> result = repository.findById(nonExistingId);
+		Assertions.assertTrue(result.isEmpty());		
 	}
 
 }
