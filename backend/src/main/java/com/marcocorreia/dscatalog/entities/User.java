@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,10 @@ public class User implements Serializable{
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String email;
 	private String password;
+	
+	@Column(unique = true)
+	private String email;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role",
